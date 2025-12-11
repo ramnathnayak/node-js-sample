@@ -1,0 +1,22 @@
+SECRET_NAME=$(kubectl get sa jenkins-sa -n jenkins -o jsonpath="{.secrets[0].name}")
+kubectl get secret $SECRET_NAME -n jenkins -o jsonpath="{.data.token}" | base64 --decode
+kubectl get secret $SECRET_NAME -n jenkins -o jsonpath="{.data['ca\.crt']}" | base64 --decode > ca.crt
+
+
+apiVersion: v1
+kind: Config
+clusters:
+- cluster:
+    certificate-authority-data: <base64-of-ca.crt>
+    server: https://<KUBERNETES_API_SERVER>
+  name: jenkins-cluster
+contexts:
+- context:
+    cluster: jenkins-cluster
+    user: jenkins-sa
+  name: jenkins-context
+current-context: jenkins-context
+users:
+- name: jenkins-sa
+  user:
+    token: <service-account-token>
