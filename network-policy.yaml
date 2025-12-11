@@ -1,0 +1,15 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-specific-pods
+spec:
+  podSelector:
+    matchLabels:
+      app: node-js   # Target Node.js pods
+  policyTypes:
+    - Ingress
+  ingress:
+    - from:
+        - podSelector:
+            matchLabels:
+              access: allowed  # Only pods with this label can access
