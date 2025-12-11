@@ -16,7 +16,7 @@ spec:
         - name: node-js-container
           image: prathamesh24/node-js-sample:1.0
           ports:
-            - containerPort: 8082
+            - containerPort: 5000
 ---
 apiVersion: v1
 kind: Service
