@@ -11,6 +11,8 @@ pipeline {
         }
 	stage('Build Docker Image') {
 	    steps {
+		sh 'pwd'
+	    sh 'ls'
 		sh 'docker build -t node-js-sample:1.0 .'
 	    }
 	}
