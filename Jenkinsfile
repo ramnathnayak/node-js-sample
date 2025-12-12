@@ -6,7 +6,7 @@ pipeline {
     stages {
 	stage('Clone Repository'){
             steps{
-                git branch: 'main', url: 'https://github.com/pratham2441/node-js-sample.git'
+                git branch: 'main', url: 'https://github.com/ramnathnayak/node-js-sample.git'
             }
         }
 	stage('Build Docker Image') {
@@ -17,8 +17,8 @@ pipeline {
 	stage('Push to Docker Hub') {
 	    steps {
 		sh 'docker login -u $DOCKER_HUB_CREDENTIALS_USR -p $DOCKER_HUB_CREDENTIALS_PSW'
-		sh 'docker tag node-js-sample:1.0 prathamesh24/node-js-sample:1.0'
-		sh 'docker push prathamesh24/node-js-sample:1.0'
+		sh 'docker tag node-js-sample:1.0 ramnathnayak/node-js-sample:1.0'
+		sh 'docker push ramnathnayak/node-js-sample:1.0'
 	    }
 	}
 	stage('Deploy to kubernetes') {
