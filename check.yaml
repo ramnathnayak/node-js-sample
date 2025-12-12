@@ -1,1 +1,69 @@
 
+sudo usermod -aG docker jenkins
+sudo systemctl restart jenkins
+
+aaaaaaaaaaaaaaabbbbbbbdckr_pat_avGHDd4m7aE99ffqItF1-YCGzyU
+
+kubectl apply -f persistent-volume.yaml
+
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: node-js-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: node-js
+  template:
+    metadata:
+      labels:
+        app: node-js
+    spec:
+      containers:
+        - name: node-js-container
+          image: prathamesh24/node-js-sample:1.0
+          ports:
+            - containerPort: 5000
+          volumeMounts:
+            - name: node-js-storage
+              mountPath: /usr/src/app/data
+      volumes:
+        - name: node-js-storage
+          persistentVolumeClaim:
+            claimName: node-js-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: node-js-service
+spec:
+  type: NodePort
+  selector:
+    app: node-js
+  ports:
+    - protocol: TCP
+      port: 5000
+      targetPort: 5000
+      nodePort: 30007
+
+
+
+
+
+kubectl get pvc
+
+kubectl apply -f node-js-sample/network-policy.yaml
+
+kubectl get networkpolicy
+
+kubectl get pods
+
+kubectl label pod <pod-name> access=allowed
+
+kubectl exec -it client-pod -- curl http://node-js-service:5000
+
+kubectl exec -it client-pod -- wget -qO- http://node-js-service:5000
+
+
