@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: node-js-container
-          image: prathamesh24/node-js-sample:1.0
+          image: ramnathnayak/node-js-sample:1.0
           ports:
             - containerPort: 5000
 ---
