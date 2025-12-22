@@ -2,8 +2,6 @@
 sudo usermod -aG docker jenkins
 sudo systemctl restart jenkins
 
-aaaaaaaaaaaaaaabbbbbbbdckr_pat_avGHDd4m7aE99ffqItF1-YCGzyU
-
 kubectl apply -f persistent-volume.yaml
 
 
